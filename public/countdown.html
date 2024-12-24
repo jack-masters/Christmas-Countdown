@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Christmas Countdown</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css?family=Amatic+SC&display=swap');
+      @import url('https://fonts.googleapis.com/css?family=Patua+One&display=swap');
+      @import url('https://fonts.googleapis.com/css?family=Noto+Sans&display=swap');
+
+      html {
+        box-sizing: border-box;
+      }
+
+      body {
+        color: #fff;
+        margin: 0;
+        padding: 0;
+        font-family: "Patua One", cursive;
+        overflow: scroll;
+      }
+
+      #wrapper {
+        background: url(https://slidescorner.com/wp-content/uploads/2024/11/Aesthetic-Christmas-Background-for-PPT-with-Red-and-Gold-Balls-by-SlidesCorner.com_.jpg);
+        width: 100vw;
+        height: 990px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .countdown-container h1 {
+        font-size: 4rem;
+        letter-spacing: 0.2rem;
+      }
+
+      #timer {
+        margin: 3rem 0;
+        font-size: 7.5rem;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: 128px 50px;
+        justify-items: center;
+        grid-column-gap: 40px;
+      }
+
+      #timer .animated {
+        animation-name: pulse;
+        animation-duration: 1s;
+        animation-timing-function: linear;
+        animation-fill-mode: both;
+        animation-iteration-count: infinite;
+      }
+
+      @keyframes pulse {
+        100% {
+          transform: scaleX(1);
+        }
+
+        30%,
+        50%,
+        80% {
+          transform: scale3d(1.1, 1.1, 1.1);
+        }
+
+        0% {
+          transform: scaleX(1);
+        }
+      }
+
+      .label {
+        font-size: 2.5rem;
+        color: #fec54d;
+      }
+
+      .fa-snowflake {
+        color: #fff;
+        position: absolute;
+        top: -20px;
+        animation: fall linear;
+      }
+
+      @keyframes fall {
+        to {
+          transform: translateY(950px);
+        }
+      }
+
+      /* Styling quiz section */
+      .start-quiz-btn {
+        margin: 3rem 0;
+        background-color: #fec54d;
+        color: #41403E;
+        outline: none;
+        border: none;
+        font-size: 1.3rem;
+        padding: 0.6rem;
+        border-radius: 275px 55px 275px 55px/55px 275px 55px 275px;
+        border: dashed 3px #41403E;
+        cursor: pointer;
+      }
+
+      #quiz-container {
+        font-family: 'Noto Sans', sans-serif;
+        font-size: 1.5rem;
+        background: #fff;
+        color: black;
+        font-size: 0.9rem;
+        width: 750px;
+        text-align: center;
+        border: 1px #41403E;
+        border-radius: 235px 55px 235px 55px/55px 235px 55px 235px;
+      }
+
+      #quiz-container h1 {
+        font-family: 'Amatic SC', cursive;
+        font-size: 4rem;
+        margin: 0;
+        text-shadow: 0px 3px 3px rgba(0, 0, 0, 0.4);
+      }
+
+      .questionCount {
+        margin: 5px 0 0 0;
+        color: lightgray;
+      }
+
+      .question {
+        padding: 15px 0 20px 0;
+        font-size: 1.1em
+      }
+
+      .answer {
+        display: grid;
+        grid: repeat(2, 1fr) / repeat(2, 300px);
+        grid-gap: 15px;
+        justify-content: center;
+      }
+
+      .answer-box {
+        border: 1px solid black;
+        padding: 0.8rem;
+        border-radius: 10px;
+        cursor: pointer;
+        box-shadow: 2px 4px 4px rgba(63, 127, 191, 0.3);
+        background: rgba(247, 241, 227, 1.0);
+      }
+
+      .answer-box:hover {
+        background-color: #fec54d;
+      }
+
+      .message-box {
+        border: 5px dotted #fec54d;
+        border-radius: 10px;
+        width: 60%;
+        margin: 20px auto;
+        padding: 14px;
+      }
+
+      #green {
+        color: #359e37;
+        margin: -10px 0 -12px 0;
+      }
+
+      #red {
+        color: #9e4135;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .final-message {
+        border: 7px dotted #fec54d;
+        border-radius: 10px;
+        padding: 67px;
+        font-size: 1.5rem;
+        letter-spacing: 2px;
+      }
+
+      .restart-btn {
+        background-color: rgba(247, 241, 227, 1.0);
+        border: 1px solid lightgray;
+        padding: 10px;
+        text-decoration: none;
+        margin-top: 6%;
+        border-radius: 12px;
+        letter-spacing: 2px;
+        font-size: 1.3rem;
+        outline: none;
+        cursor: pointer;
+      }
+
+      .visible {
+        opacity: 0;
+        transform: translateX(-100rem);
+      }
+
+      .reveal-visible {
+        opacity: 1;
+        transform: translateX(0);
+        transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+      }
+
+      /* Media Queries */
+      @media screen and (max-width: 690px) {
+        #timer {
+          font-size: 5.5rem;
+        }
+
+        h1 {
+          text-align: center;
+        }
+
+        .start-quiz-btn {
+          visibility: hidden;
+        }
+      }
+
+      @media screen and (max-width: 518px) {
+        #timer {
+          font-size: 4rem;
+          grid-template-rows: 70px 50px;
+        }
+
+        h1 {
+          font-size: 2.5rem;
+        }
+
+        .label {
+          font-size: 1.7rem;
+        }
+      }
+
+      @media screen and (max-width: 453px) {
+        #timer {
+          grid-template-columns: repeat(2, 1fr);
+          grid-template-rows: repeat(2, 70px 30px);
+          grid-column-gap: 70px;
+        }
+
+        #timer span:nth-of-type(-n + 2) {
+          grid-row: 2/3;
+        }
+      }
+    </style>
+    <link rel="stylesheet" href="fontawesome/css/all.css" />
+  </head>
+  <body>
+    <div id="wrapper">
+      <div class="countdown-container">
+        <h1>Christmas Countdown</h1>
+        <div id="timer">
+          <div id="days"></div>
+          <div id="hours"></div>
+          <div id="mins"></div>
+          <div id="secs" class="animated"></div>
+          <span class="label">Days</span>
+          <span class="label">Hours</span>
+          <span class="label">Mins</span>
+          <span class="label">Secs</span>
+        </div>
+      </div>
+      <script>
+        // Countdown section
+        const {
+          body
+        } = document;
+        const daysEl = document.getElementById('days');
+        const hoursEl = document.getElementById('hours');
+        const minsEl = document.getElementById('mins');
+        const secsEl = document.getElementById('secs');
+
+        function calculateChristmasCountdown() {
+          const now = new Date();
+          const currentMonth = now.getMonth() + 1;
+          const currentDay = now.getDate();
+          // Figure out the year that the next Christmas will occur on
+          let nextChristmasYear = now.getFullYear();
+          if (currentMonth === 12 && currentDay > 25) {
+            nextChristmasYear += 1;
+          }
+          const nextChristmasDate = `Dec 25, ${nextChristmasYear} 0:0:0`;
+          const christmasDate = new Date(nextChristmasDate);
+          const timeLeft = christmasDate - now; // in milliseconds
+          let days = 0;
+          let hours = 0;
+          let mins = 0;
+          let secs = 0;
+          // Don't calculate the time left if it is Christmas day
+          if (currentMonth !== 12 || (currentMonth === 12 && currentDay !== 25)) {
+            days = Math.floor(timeLeft / 1000 / 60 / 60 / 24);
+            hours = Math.floor(timeLeft / 1000 / 60 / 60) % 24;
+            mins = Math.floor(timeLeft / 1000 / 60) % 60;
+            secs = Math.floor(timeLeft / 1000) % 60;
+          }
+          daysEl.innerHTML = days < 10 ? `0${days}` : days;
+          hoursEl.innerHTML = hours < 10 ? `0${hours}` : hours;
+          minsEl.innerHTML = mins < 10 ? `0${mins}` : mins;
+          secsEl.innerHTML = secs < 10 ? `0${secs}` : secs;
+        }
+
+        function createSnowFlake() {
+          const snow_flake = document.createElement('i');
+          snow_flake.classList.add('far');
+          snow_flake.classList.add('fa-snowflake');
+          snow_flake.style.left = `${Math.random() * window.innerWidth}px`;
+          snow_flake.style.animationDuration = `${Math.random() * 3 + 2}s`;
+          snow_flake.style.opacity = Math.random();
+          body.appendChild(snow_flake);
+          setTimeout(() => {
+            snow_flake.remove();
+          }, 5000);
+        }
+        setInterval(calculateChristmasCountdown, 1000);
+        setInterval(createSnowFlake, 100);
+      </script>
+  </body>
+</html>
